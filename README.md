@@ -18,3 +18,8 @@ Development Builds:
     <img src="https://thebusybiscuit.github.io/builds/TheBusyBiscuit/luckyblocks-sf/master/badge.svg" alt="Build Server"/>
   </a>
 </p>
+
+# License
+
+This project is licensed under 
+[GNU GPLv3](https://github.com/TheBusyBiscuit/luckyblocks-sf/blob/master/LICENSE)
