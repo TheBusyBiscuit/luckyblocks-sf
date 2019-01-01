@@ -1,0 +1,8 @@
+name: SlimefunLuckyBlocks
+version: 1.1
+author: mrCookieSlime
+website: http://dev.bukkit.org/profiles/mrCookieSlime/bukkit-plugins/
+
+main: me.mrCookieSlime.SlimefunLuckyBlocks.SlimefunLuckyBlocks
+
+depend: [Slimefun, CS-CoreLib]
