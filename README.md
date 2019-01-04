@@ -4,7 +4,7 @@ A Lucky Blocks Addon for Slimefun 4
 This Plugin has been updated for Minecraft 1.13.X.
 
 This Plugin also requires a 1.13.X compatible version of:
-- CS-CoreLib: https://github.com/TheBusyBiscuit/Slimefun4
+- CS-CoreLib: https://github.com/TheBusyBiscuit/CS-CoreLib
 - Slimefun 4: https://github.com/TheBusyBiscuit/Slimefun4
 
 # Download links
