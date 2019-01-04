@@ -13,6 +13,8 @@ Official / Stable Builds:
 https://dev.bukkit.org/projects/luckyblocks-sf
 
 Development Builds:
+https://thebusybiscuit.github.io/builds/TheBusyBiscuit/luckyblocks-sf/master/
+
 <p align="center">
   <a href="https://thebusybiscuit.github.io/builds/TheBusyBiscuit/luckyblocks-sf/master/">
     <img src="https://thebusybiscuit.github.io/builds/TheBusyBiscuit/luckyblocks-sf/master/badge.svg" alt="Build Server"/>
