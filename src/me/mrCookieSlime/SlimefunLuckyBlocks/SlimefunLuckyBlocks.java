@@ -1041,7 +1041,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 			@Override
 			public void activate(Player p, Location l) {
 				Sheep sheep = (Sheep) l.getWorld().spawnEntity(l, EntityType.SHEEP);
-				sheep.setCustomName(ChatColor.translateAlternateColorCodes('&', "&ojeb_"));
+				sheep.setCustomName("jeb_");
 				sheep.setCustomNameVisible(true);
 			}
 
