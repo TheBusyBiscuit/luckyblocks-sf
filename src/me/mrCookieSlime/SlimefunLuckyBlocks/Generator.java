@@ -9,11 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;
 
 public class Generator implements Listener {
-	
+
 	public Generator(SlimefunLuckyBlocks plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler
 	public void onRandomSpawn(ChunkPopulateEvent e) {
 		if (!SlimefunLuckyBlocks.cfg.getStringList("world-blacklist").contains(e.getWorld().getName())) {
@@ -29,4 +29,5 @@ public class Generator implements Listener {
 		    }
 		}
 	}
+
 }

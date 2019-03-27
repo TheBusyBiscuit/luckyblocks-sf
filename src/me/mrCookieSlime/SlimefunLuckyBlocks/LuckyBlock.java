@@ -9,9 +9,9 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.HandledBlock;
 
 public class LuckyBlock extends HandledBlock {
-	
+
 	private static Category category;
-	
+
 	static {
 		try {
 			category = new Category(new CustomItem(CustomSkull.getItem(SlimefunLuckyBlocks.texture), "&rLucky Blocks", "&a> Click to open"));
