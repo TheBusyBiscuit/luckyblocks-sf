@@ -16,10 +16,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rotatable;
 import org.bukkit.entity.Bat;
+import org.bukkit.entity.Cat;
+import org.bukkit.entity.Cat.Type;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
-import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Slime;
@@ -521,7 +521,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 			@Override
 			public void activate(Player p, Location l) {
 				for (int i = 0; i < 8; i++) {
-					Ocelot cat = (Ocelot) l.getWorld().spawnEntity(l.add(CSCoreLib.randomizer().nextInt(4) - CSCoreLib.randomizer().nextInt(8), 1, CSCoreLib.randomizer().nextInt(4) - CSCoreLib.randomizer().nextInt(8)), EntityType.OCELOT);
+					Cat cat = (Cat) l.getWorld().spawnEntity(l.add(CSCoreLib.randomizer().nextInt(4) - CSCoreLib.randomizer().nextInt(8), 1, CSCoreLib.randomizer().nextInt(4) - CSCoreLib.randomizer().nextInt(8)), EntityType.CAT);
 					cat.setAdult();
 					cat.setOwner(p);
 					cat.setCatType(Type.values()[CSCoreLib.randomizer().nextInt(Type.values().length)]);
