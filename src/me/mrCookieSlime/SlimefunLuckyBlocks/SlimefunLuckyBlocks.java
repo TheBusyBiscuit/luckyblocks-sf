@@ -68,6 +68,8 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 				PluginUtils utils = new PluginUtils(this);
 				utils.setupConfig();
 				utils.setupUpdater(92131, getFile());
+				utils.setupMetrics();
+				
 				cfg = utils.getConfig();
 				surprises = new ArrayList<Surprise>();
 				luckylist = new HashMap<LuckLevel, List<Surprise>>();
