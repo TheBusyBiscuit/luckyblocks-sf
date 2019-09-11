@@ -29,7 +29,6 @@ import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.EmeraldBlock
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.GoldenAppleSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.IronBlockSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.LuckyAxeSurprise;
-import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.LuckyBatonSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.LuckyBootsSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.LuckyChestplateSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.LuckyHelmetSurprise;
@@ -91,7 +90,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		Config cfg = new Config(this);
+		cfg = new Config(this);
 
 		// Setting up bStats
 		new Metrics(this);
@@ -166,7 +165,6 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		registerSuprise(new LuckyPickaxeSurprise());
 		registerSuprise(new LuckyAxeSurprise());
 		registerSuprise(new XPRainSurprise());
-		registerSuprise(new LuckyBatonSurprise());
 		registerSuprise(new LuckyHelmetSurprise());
 		registerSuprise(new LuckyChestplateSurprise());
 		registerSuprise(new LuckyLeggingsSurprise());
@@ -238,7 +236,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 	public void spawnLuckyBlock(Block b) {
 		b.setType(Material.PLAYER_HEAD);
 		Rotatable s = (Rotatable) b.getBlockData();
-		s.setRotation(blockfaces[new Random().nextInt(blockfaces.length)]);
+		s.setRotation(blockfaces[random.nextInt(blockfaces.length)]);
 		b.setBlockData(s);
 		
 		try {

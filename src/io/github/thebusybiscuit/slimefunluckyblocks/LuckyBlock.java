@@ -1,5 +1,6 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -16,15 +17,13 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.BlockBreakHandler;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class LuckyBlock extends HandledBlock {
-	
-	private BlockBreakHandler handler;
 
 	public LuckyBlock(Category category, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, id, recipeType, recipe);
 	}
 	
-	public void register(Random random, List<Surprise> surprises, Predicate<Surprise> predicate) {
-		handler = (e, tool, fortune, drops) -> {
+	public void register(Random random, Collection<Surprise> surprises, Predicate<Surprise> predicate) {
+		BlockBreakHandler handler = (e, tool, fortune, drops) -> {
 			String id = BlockStorage.checkID(e.getBlock());
 			if (id != null && id.equals(getID())) {
 				BlockStorage.retrieve(e.getBlock());

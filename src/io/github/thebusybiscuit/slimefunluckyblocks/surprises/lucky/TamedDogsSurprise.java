@@ -21,7 +21,7 @@ public final class TamedDogsSurprise implements Surprise {
 	@Override
 	public void activate(Random random, Player p, Location l) {
 		for (int i = 0; i < 8; i++) {
-			Wolf dog = (Wolf) l.getWorld().spawnEntity(l.add(random.nextInt(4) - random.nextInt(8), 1, random.nextInt(4) - random.nextInt(8)), EntityType.WOLF);
+			Wolf dog = (Wolf) l.getWorld().spawnEntity(l.add(random.nextInt(4) - (double) random.nextInt(8), 1, random.nextInt(4) - (double) random.nextInt(8)), EntityType.WOLF);
 			dog.setAdult();
 			dog.setCollarColor(DyeColor.values()[random.nextInt(DyeColor.values().length)]);
 			dog.setOwner(p);

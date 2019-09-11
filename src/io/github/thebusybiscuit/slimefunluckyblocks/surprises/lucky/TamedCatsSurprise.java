@@ -21,7 +21,7 @@ public final class TamedCatsSurprise implements Surprise {
 	@Override
 	public void activate(Random random, Player p, Location l) {
 		for (int i = 0; i < 8; i++) {
-			Cat cat = (Cat) l.getWorld().spawnEntity(l.add(random.nextInt(4) - random.nextInt(8), 1, random.nextInt(4) - random.nextInt(8)), EntityType.CAT);
+			Cat cat = (Cat) l.getWorld().spawnEntity(l.add(random.nextInt(4) - (double) random.nextInt(8), 1, random.nextInt(4) - (double) random.nextInt(8)), EntityType.CAT);
 			cat.setAdult();
 			cat.setOwner(p);
 			cat.setCatType(Type.values()[random.nextInt(Type.values().length)]);
