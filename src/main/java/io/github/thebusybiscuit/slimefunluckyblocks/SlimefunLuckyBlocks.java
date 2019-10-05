@@ -16,9 +16,6 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
-import io.github.thebusybiscuit.cscorelib2.updater.BukkitUpdater;
-import io.github.thebusybiscuit.cscorelib2.updater.GitHubBuildsUpdater;
-import io.github.thebusybiscuit.cscorelib2.updater.Updater;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.CakeSurprise;
@@ -71,7 +68,6 @@ import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.TNTRainSur
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.VoidHoleSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WalshrusSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WitchSurprise;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
@@ -79,6 +75,10 @@ import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
+import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.BukkitUpdater;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 
 public class SlimefunLuckyBlocks extends JavaPlugin {
 
