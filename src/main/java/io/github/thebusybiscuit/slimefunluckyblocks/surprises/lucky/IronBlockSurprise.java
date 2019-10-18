@@ -18,7 +18,7 @@ public final class IronBlockSurprise implements Surprise {
 
 	@Override
 	public void activate(Random random, Player p, Location l) {
-		l.getWorld().spawnFallingBlock(l.add(0, 5, 0), Material.IRON_BLOCK.createBlockData());
+		l.getWorld().spawnFallingBlock(l.add(0.5, 5, 0.5), Material.IRON_BLOCK.createBlockData());
 	}
 
 	@Override

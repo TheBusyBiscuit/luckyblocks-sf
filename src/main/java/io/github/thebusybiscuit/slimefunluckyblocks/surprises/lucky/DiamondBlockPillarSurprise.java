@@ -20,9 +20,9 @@ public final class DiamondBlockPillarSurprise implements Surprise {
 	@Override
 	public void activate(Random random, Player p, Location l) {
 		for (int i = 0; i < 8; i++) {
-			l.getWorld().spawnFallingBlock(l.add(0, (i + 1) * 4.0, 0), MaterialCollections.getAllTerracottaColors().get(i).createBlockData());
+			l.getWorld().spawnFallingBlock(l.clone().add(0.5, (i + 1) * 4.0, 0.5), MaterialCollections.getAllTerracottaColors().get(i).createBlockData());
 		}
-		l.getWorld().spawnFallingBlock(l.add(0, 9 * 4.0, 0), Material.DIAMOND_BLOCK.createBlockData());
+		l.getWorld().spawnFallingBlock(l.clone().add(0.5, 9 * 4.0, 0.5), Material.DIAMOND_BLOCK.createBlockData());
 	}
 
 	@Override

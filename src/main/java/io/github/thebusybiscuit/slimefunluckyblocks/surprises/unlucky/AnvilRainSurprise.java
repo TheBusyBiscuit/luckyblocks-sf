@@ -26,8 +26,8 @@ public final class AnvilRainSurprise implements Surprise {
 				}
 			}
 		}
-		p.getWorld().spawnFallingBlock(p.getLocation().add(0, 16, 0), Material.ANVIL.createBlockData());
-		p.getWorld().spawnFallingBlock(p.getLocation().add(0, 24, 0), Material.ANVIL.createBlockData());
+		p.getWorld().spawnFallingBlock(p.getLocation().add(0.5, 16, 0.5), Material.ANVIL.createBlockData());
+		p.getWorld().spawnFallingBlock(p.getLocation().add(0.5, 24, 0.5), Material.ANVIL.createBlockData());
 	}
 
 	@Override
