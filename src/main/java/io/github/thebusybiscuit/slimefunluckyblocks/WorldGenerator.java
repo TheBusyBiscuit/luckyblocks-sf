@@ -19,7 +19,7 @@ public class WorldGenerator implements Listener {
 	public void onRandomSpawn(ChunkPopulateEvent e) {
 		if (!plugin.getCfg().getStringList("world-blacklist").contains(e.getWorld().getName()) && plugin.getRandom().nextInt(100) < plugin.getCfg().getInt("chance")) {
 			int x = e.getChunk().getX() * 16 + plugin.getRandom().nextInt(16);
-			int z = e.getChunk().getZ() * 16 + plugin.getRandom().nextInt(16) ;
+			int z = e.getChunk().getZ() * 16 + plugin.getRandom().nextInt(16);
 			int y = e.getWorld().getHighestBlockYAt(x, z);
 			
 	    	Block current = e.getWorld().getBlockAt(x, y, z);
