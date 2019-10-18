@@ -18,7 +18,7 @@ public final class EmeraldBlockSurprise implements Surprise {
 
 	@Override
 	public void activate(Random random, Player p, Location l) {
-		l.getWorld().spawnFallingBlock(l.add(0, 5, 0), Material.EMERALD_BLOCK.createBlockData());
+		l.getWorld().spawnFallingBlock(l.add(0.5, 5, 0.5), Material.EMERALD_BLOCK.createBlockData());
 	}
 
 	@Override
