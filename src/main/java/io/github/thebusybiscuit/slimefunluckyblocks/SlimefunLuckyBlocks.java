@@ -74,8 +74,10 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
+import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.BukkitUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
@@ -110,23 +112,12 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		// Only run the Updater if it has not been disabled
 		if (cfg.getBoolean("options.auto-update")) updater.start();
 		
-		Category category = null;
+		Category category = new Category(new CustomItem(SkullItem.fromBase64(texture), "&rLucky Blocks", "&a> Click to open"));
 		
-		ItemStack luckyBlock = null;
-		ItemStack veryLuckyBlock = null;
-		ItemStack veryUnluckyBlock = null;
-		ItemStack pandorasBox = null;
-		
-		try {
-			category = new Category(new CustomItem(CustomSkull.getItem(texture), "&rLucky Blocks", "&a> Click to open"));
-			
-			luckyBlock = new CustomItem(CustomSkull.getItem(texture), "&rLucky Block", "&7Luck: &r0");
-			veryLuckyBlock = new CustomItem(CustomSkull.getItem(texture), "&rVery lucky Block", "&7Luck: &a+80");
-			veryUnluckyBlock = new CustomItem(CustomSkull.getItem(texture), "&rVery unlucky Block", "&7Luck: &c-80");
-			pandorasBox = new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODZjN2RkZTUxMjg3MWJkNjA3Yjc3ZTY2MzVhZDM5ZjQ0ZjJkNWI0NzI5ZTYwMjczZjFiMTRmYmE5YTg2YSJ9fX0="), "&5Pandora's Box", "&7Luck: &c&oERROR");
-		} catch (Exception x) {
-			getLogger().log(Level.SEVERE, "An Error occured while initializing Lucky Block Items for LuckyBlocks v" + getDescription().getVersion(), x);
-		}
+		SlimefunItemStack luckyBlock = new SlimefunItemStack("LUCKY_BLOCK", texture, "&rLucky Block", "&7Luck: &r0");
+		SlimefunItemStack veryLuckyBlock = new SlimefunItemStack("LUCKY_BLOCK_LUCKY", texture, "&rVery lucky Block", "&7Luck: &a+80");
+		SlimefunItemStack veryUnluckyBlock = new SlimefunItemStack("LUCKY_BLOCK_UNLUCKY", texture, "&rVery unlucky Block", "&7Luck: &c-80");
+		SlimefunItemStack pandorasBox = new SlimefunItemStack("PANDORAS_BOX", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODZjN2RkZTUxMjg3MWJkNjA3Yjc3ZTY2MzVhZDM5ZjQ0ZjJkNWI0NzI5ZTYwMjczZjFiMTRmYmE5YTg2YSJ9fX0=", "&5Pandora's Box", "&7Luck: &c&oERROR");
 		
 		new LuckyBlock(category, luckyBlock, "LUCKY_BLOCK", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K})

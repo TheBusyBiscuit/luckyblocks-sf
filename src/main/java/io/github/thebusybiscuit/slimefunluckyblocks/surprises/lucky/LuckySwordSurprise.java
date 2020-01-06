@@ -4,13 +4,25 @@ import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 
 public final class LuckySwordSurprise implements Surprise {
+	
+	private final ItemStack sword;
+	
+	public LuckySwordSurprise() {
+		sword = new CustomItem(Material.GOLDEN_AXE, "&e&lLucky Sword");
+		sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+		sword.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 10);
+		sword.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+		sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 5);
+	}
 	
 	@Override
 	public String getName() {
@@ -19,7 +31,7 @@ public final class LuckySwordSurprise implements Surprise {
 
 	@Override
 	public void activate(Random random, Player p, Location l) {
-		l.getWorld().dropItemNaturally(l, new CustomItem(Material.GOLDEN_SWORD, "&e&lLucky Sword", new String[] {"DAMAGE_ALL-10", "LOOT_BONUS_MOBS-10", "FIRE_ASPECT-5", "DURABILITY-10"}, 0));
+		l.getWorld().dropItemNaturally(l, sword.clone());
 	}
 
 	@Override
