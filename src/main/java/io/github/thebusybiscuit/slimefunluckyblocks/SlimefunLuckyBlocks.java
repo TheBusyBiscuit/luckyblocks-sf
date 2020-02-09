@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rotatable;
@@ -95,7 +96,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		cfg = new Config(this);
 
 		// Setting up bStats
-		new Metrics(this);
+		new Metrics(this, 4858);
 
 		// Setting up the Auto-Updater
 		Updater updater;
@@ -112,26 +113,26 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		// Only run the Updater if it has not been disabled
 		if (cfg.getBoolean("options.auto-update")) updater.start();
 		
-		Category category = new Category(new CustomItem(SkullItem.fromBase64(texture), "&rLucky Blocks", "&a> Click to open"));
+		Category category = new Category(new NamespacedKey(this, "lucky_blocks"), new CustomItem(SkullItem.fromBase64(texture), "&rLucky Blocks", "&a> Click to open"));
 		
 		SlimefunItemStack luckyBlock = new SlimefunItemStack("LUCKY_BLOCK", texture, "&rLucky Block", "&7Luck: &r0");
 		SlimefunItemStack veryLuckyBlock = new SlimefunItemStack("LUCKY_BLOCK_LUCKY", texture, "&rVery lucky Block", "&7Luck: &a+80");
 		SlimefunItemStack veryUnluckyBlock = new SlimefunItemStack("LUCKY_BLOCK_UNLUCKY", texture, "&rVery unlucky Block", "&7Luck: &c-80");
 		SlimefunItemStack pandorasBox = new SlimefunItemStack("PANDORAS_BOX", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODZjN2RkZTUxMjg3MWJkNjA3Yjc3ZTY2MzVhZDM5ZjQ0ZjJkNWI0NzI5ZTYwMjczZjFiMTRmYmE5YTg2YSJ9fX0=", "&5Pandora's Box", "&7Luck: &c&oERROR");
 		
-		new LuckyBlock(category, luckyBlock, "LUCKY_BLOCK", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new LuckyBlock(category, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K})
 		.register(random, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
 		
-		new LuckyBlock(category, veryLuckyBlock, "LUCKY_BLOCK_LUCKY", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new LuckyBlock(category, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, luckyBlock, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, null})
 		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
 		
-		new LuckyBlock(category, veryUnluckyBlock, "LUCKY_BLOCK_UNLUCKY", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new LuckyBlock(category, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), luckyBlock, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), null})
 		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
 		
-		new LuckyBlock(category, pandorasBox, "PANDORAS_BOX", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new LuckyBlock(category, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), luckyBlock, new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS)})
 		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
 		
