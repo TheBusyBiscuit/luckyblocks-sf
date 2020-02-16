@@ -4,27 +4,25 @@ import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 
-public final class WitchSurprise implements Surprise {
+public final class ZombiePigmenSurprise implements Surprise {
 	
 	@Override
 	public String getName() {
-		return "Witch and Bats";
+		return "Angry Zombie Pigmen";
 	}
 
 	@Override
 	public void activate(Random random, Player p, Location l) {
-		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 1));
-		l.getWorld().spawnEntity(l, EntityType.WITCH);
-		
-		for (int i = 0; i < 16; i++) {
-			l.getWorld().spawnEntity(l, EntityType.BAT);
+		for (int i = 0; i < 4; i++) {
+			PigZombie pigman = (PigZombie) l.getWorld().spawnEntity(l.add(random.nextInt(4) - (double) random.nextInt(8), 1, random.nextInt(4) - (double) random.nextInt(8)), EntityType.PIG_ZOMBIE);
+			pigman.setAngry(true);
+			pigman.setTarget(p);
 		}
 	}
 

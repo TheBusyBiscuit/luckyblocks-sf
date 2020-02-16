@@ -2,7 +2,7 @@ package io.github.thebusybiscuit.slimefunluckyblocks;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.CakeSurprise;
@@ -69,8 +70,8 @@ import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.TNTRainSur
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.VoidHoleSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WalshrusSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WitchSurprise;
+import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.ZombiePigmenSurprise;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
-import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -78,17 +79,17 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
+import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullBlock;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.updater.BukkitUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 
-public class SlimefunLuckyBlocks extends JavaPlugin {
+public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 	private Config cfg;
-	private final Random random = new Random();
 	private final List<Surprise> surprises = new LinkedList<>();
 	private final BlockFace[] blockfaces = {BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST, BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST, BlockFace.NORTH_WEST};
+	
 	private final String texture = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjNiNzEwYjA4YjUyM2JiYTdlZmJhMDdjNjI5YmEwODk1YWQ2MTEyNmQyNmM4NmJlYjM4NDU2MDNhOTc0MjZjIn19fQ==";
 	
 	@Override
@@ -98,20 +99,10 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		// Setting up bStats
 		new Metrics(this, 4858);
 
-		// Setting up the Auto-Updater
-		Updater updater;
-
-		if (!getDescription().getVersion().startsWith("DEV - ")) {
-			// We are using an official build, use the BukkitDev Updater
-			updater = new BukkitUpdater(this, getFile(), 92132);
+		if (getDescription().getVersion().startsWith("DEV - ")) {
+			Updater updater = new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/luckyblocks-sf/master");
+			if (cfg.getBoolean("options.auto-update")) updater.start();
 		}
-		else {
-			// If we are using a development build, we want to switch to our custom 
-			updater = new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/luckyblocks-sf/master");
-		}
-		
-		// Only run the Updater if it has not been disabled
-		if (cfg.getBoolean("options.auto-update")) updater.start();
 		
 		Category category = new Category(new NamespacedKey(this, "lucky_blocks"), new CustomItem(SkullItem.fromBase64(texture), "&rLucky Blocks", "&a> Click to open"));
 		
@@ -122,19 +113,19 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		
 		new LuckyBlock(category, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K})
-		.register(random, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
+		.register(this, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
 		
 		new LuckyBlock(category, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, luckyBlock, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, null})
-		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
+		.register(this, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
 		
 		new LuckyBlock(category, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), luckyBlock, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), null})
-		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
+		.register(this, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
 		
 		new LuckyBlock(category, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), luckyBlock, new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS)})
-		.register(random, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
+		.register(this, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
 		
 		new WorldGenerator(this);
 		registerSurprises();
@@ -196,6 +187,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 		registerSuprise(new HighJumpSurprise());
 		registerSuprise(new CobwebSurprise());
 		registerSuprise(new GiantSlimeSurprise());
+		registerSuprise(new ZombiePigmenSurprise());
 		
 		// Pandora Box Surprises
 		registerSuprise(new ReapersSurprise());
@@ -228,24 +220,29 @@ public class SlimefunLuckyBlocks extends JavaPlugin {
 	public void spawnLuckyBlock(Block b) {
 		b.setType(Material.PLAYER_HEAD);
 		Rotatable s = (Rotatable) b.getBlockData();
-		s.setRotation(blockfaces[random.nextInt(blockfaces.length)]);
+		s.setRotation(blockfaces[ThreadLocalRandom.current().nextInt(blockfaces.length)]);
 		b.setBlockData(s);
 		
-		try {
-			CustomSkull.setSkull(b, texture);
-		} catch (Exception x) {
-			getLogger().log(Level.SEVERE, "An Error occured while trying to spawn a Lucky Block v" + getDescription().getVersion(), x);
-		}
-		
+		SkullBlock.setFromBase64(b, texture);
 		BlockStorage.store(b, "LUCKY_BLOCK");
-	}
-	
-	public Random getRandom() {
-		return random;
+		
+		if (getCfg().getBoolean("debug")) {
+			getLogger().log(Level.INFO, "spawned lucky block at " + b.getX() + " " + b.getY() + " " + b.getZ() + " " + b.getWorld().getName());
+		}
 	}
 
 	public Config getCfg() {
 		return cfg;
+	}
+
+	@Override
+	public JavaPlugin getJavaPlugin() {
+		return this;
+	}
+
+	@Override
+	public String getBugTrackerURL() {
+		return "https://github.com/TheBusyBiscuit/luckyblocks-sf/issues";
 	}
 
 }
