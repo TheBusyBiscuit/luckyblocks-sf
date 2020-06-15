@@ -1,23 +1,7 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Rotatable;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
-
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefunluckyblocks.surprises.CustomItemSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.CakeSurprise;
@@ -83,6 +67,26 @@ import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullBlock;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Rotatable;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
 
 public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
@@ -192,6 +196,81 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 		// Pandora Box Surprises
 		registerSuprise(new ReapersSurprise());
 		registerSuprise(new IronGolemsSurprise());
+
+		// CustomItem Surprises
+		if (cfg.getValue("custom") != null && cfg.getKeys("custom").size() > 0) {
+			for (String name : cfg.getKeys("custom")) {
+				LuckLevel luckLevel = LuckLevel.NEUTRAL;
+				List<ItemStack> items = new ArrayList<>();
+
+				if (cfg.getString("custom." + name + ".lucklevel") != null) {
+					try {
+						luckLevel = LuckLevel.valueOf(cfg.getString("custom." + name + ".lucklevel").toUpperCase());
+					} catch (IllegalArgumentException ex) {
+						getLogger().log(Level.WARNING, "Couldn't load lucklevel of CustomItem Surprise '" + name + "', now using NEUTRAL (default)");
+						getLogger().log(Level.WARNING, "Valid lucklevel types: LUCKY, NEUTRAL, UNLUCKY, PANDORA");
+					}
+				}
+
+				if (cfg.getValue("custom." + name + ".items") != null && cfg.getKeys("custom." + name + ".items").size() > 0) {
+					for (String itemID : cfg.getKeys("custom." + name + ".items")) {
+						ItemStack item = null;
+						String itemPath = "custom." + name + ".items." + itemID;
+						if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
+							item = new ItemStack(Material.getMaterial(cfg.getString(itemPath + ".type")));
+							ItemMeta itemMeta = item.getItemMeta();
+
+							if (cfg.getInt(itemPath + ".amount") > 1) {
+								item.setAmount(cfg.getInt(itemPath + ".amount"));
+							}
+
+							if (cfg.getString(itemPath + ".displayname") != null) {
+								itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', cfg.getString(itemPath + ".displayname")));
+							}
+
+							if (cfg.getStringList(itemPath + ".lore").size() > 0) {
+								List<String> lore = new ArrayList<>();
+								cfg.getStringList(itemPath + ".lore").forEach(l -> {
+									lore.add(ChatColor.translateAlternateColorCodes('&', l));
+								});
+								itemMeta.setLore(lore);
+							}
+
+
+							if (cfg.getStringList(itemPath + ".enchants").size() > 0) {
+								cfg.getStringList(itemPath + ".enchants").forEach(ench -> {
+									String enchName = ench.split(":")[0];
+									String enchLevel = ench.split(":")[1];
+									Enchantment enchantment;
+									int level = 0;
+
+									if (Enchantment.getByName(enchName.toUpperCase()) == null) {
+										getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant for CustomItem Surprise '" + name + "'");
+										return;
+									}
+									enchantment = Enchantment.getByName(enchName.toUpperCase());
+
+									try {
+										level = Integer.parseInt(enchLevel);
+									} catch (NumberFormatException ex) {
+										getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant with level '" + enchLevel + "' for CustomItem Surprise '" + name + "'");
+										return;
+									}
+
+									itemMeta.addEnchant(enchantment, level, true);
+								});
+							}
+							item.setItemMeta(itemMeta);
+							items.add(item);
+						}
+					}
+
+					if (items.size() > 0) {
+						registerSuprise(new CustomItemSurprise(name, items, luckLevel));
+					}
+				}
+			}
+		}
 	}
 
 	public static ItemStack createPotion(Color color, PotionEffect effect, boolean lucky) {
@@ -205,6 +284,13 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 	}
 
 	public void registerSuprise(Surprise surprise) {
+		if (surprise instanceof CustomItemSurprise) {
+			if (cfg.getBoolean("custom." + surprise.getName() + ".enabled")) {
+				surprises.add(surprise);
+			}
+			return;
+		}
+
 		if (cfg.contains("events." + surprise.getName())) {
 			if (cfg.getBoolean("events." + surprise.getName())) {
 				surprises.add(surprise);
