@@ -1,6 +1,7 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.utils.PatternUtils;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.CustomItemSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
@@ -71,6 +72,7 @@ import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 
@@ -214,7 +216,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 				if (cfg.getValue("custom." + name + ".items") != null && cfg.getKeys("custom." + name + ".items").size() > 0) {
 					for (String itemID : cfg.getKeys("custom." + name + ".items")) {
-						ItemStack item = null;
+						ItemStack item;
 						String itemPath = "custom." + name + ".items." + itemID;
 						if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
 							item = new ItemStack(Material.getMaterial(cfg.getString(itemPath + ".type")));
@@ -230,35 +232,35 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 							if (cfg.getStringList(itemPath + ".lore").size() > 0) {
 								List<String> lore = new ArrayList<>();
-								cfg.getStringList(itemPath + ".lore").forEach(l -> {
+								for (String l : cfg.getStringList(itemPath + ".lore")) {
 									lore.add(ChatColor.translateAlternateColorCodes('&', l));
-								});
+								}
 								itemMeta.setLore(lore);
 							}
 
-
 							if (cfg.getStringList(itemPath + ".enchants").size() > 0) {
-								cfg.getStringList(itemPath + ".enchants").forEach(ench -> {
-									String enchName = ench.split(":")[0];
-									String enchLevel = ench.split(":")[1];
+								for (String ench : cfg.getStringList(itemPath + ".enchants")) {
+									String[] split = ench.split(":");
+									String enchName = split[0];
 									Enchantment enchantment;
 									int level = 0;
 
-									if (Enchantment.getByName(enchName.toUpperCase()) == null) {
+									if (Enchantment.getByName(enchName.toUpperCase(Locale.ROOT)) == null) {
 										getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant for CustomItem Surprise '" + name + "'");
-										return;
+										continue;
 									}
-									enchantment = Enchantment.getByName(enchName.toUpperCase());
+									enchantment = Enchantment.getByName(enchName.toUpperCase(Locale.ROOT));
 
-									try {
-										level = Integer.parseInt(enchLevel);
-									} catch (NumberFormatException ex) {
-										getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant with level '" + enchLevel + "' for CustomItem Surprise '" + name + "'");
-										return;
+									if (split.length > 1) {
+										if (!PatternUtils.NUMERIC.matcher(split[1]).matches()) {
+											getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant with level '" + split[1] + "' for CustomItem Surprise '" + name + "'");
+											continue;
+										}
+										level = Integer.parseInt(split[1]);
 									}
 
 									itemMeta.addEnchant(enchantment, level, true);
-								});
+								}
 							}
 							item.setItemMeta(itemMeta);
 							items.add(item);

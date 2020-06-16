@@ -10,9 +10,9 @@ import java.util.Random;
 
 public class CustomItemSurprise implements Surprise {
 
-    private String name;
-    private LuckLevel luckLevel;
-    private List<ItemStack> items;
+    private final String name;
+    private final LuckLevel luckLevel;
+    private final List<ItemStack> items;
 
     public CustomItemSurprise(String name, List<ItemStack> items, LuckLevel luckLevel) {
         this.name = name;
@@ -27,9 +27,9 @@ public class CustomItemSurprise implements Surprise {
 
     @Override
     public void activate(Random random, Player p, Location l) {
-        items.forEach(i -> {
+        for (ItemStack i : items) {
             l.getWorld().dropItemNaturally(l, i);
-        });
+        }
     }
 
     @Override
