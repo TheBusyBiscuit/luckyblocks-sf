@@ -142,63 +142,63 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 	private void registerSurprises() {
 		// Lucky Surprises
-		registerSuprise(new CookedFoodSurprise());
-		registerSuprise(new GoldenAppleSurprise());
-		registerSuprise(new DiamondBlockSurprise());
-		registerSuprise(new DiamondBlockPillarSurprise());
-		registerSuprise(new EmeraldBlockSurprise());
-		registerSuprise(new IronBlockSurprise());
-		registerSuprise(new TamedDogsSurprise());
-		registerSuprise(new TamedCatsSurprise());
-		registerSuprise(new ValuablesSurprise());
-		registerSuprise(new LuckySwordSurprise());
-		registerSuprise(new LuckyPickaxeSurprise());
-		registerSuprise(new LuckyAxeSurprise());
-		registerSuprise(new XPRainSurprise());
-		registerSuprise(new LuckyHelmetSurprise());
-		registerSuprise(new LuckyChestplateSurprise());
-		registerSuprise(new LuckyLeggingsSurprise());
-		registerSuprise(new LuckyBootsSurprise());
-		registerSuprise(new LuckyPotionsSurprise());
-		registerSuprise(new UnluckyPotionsSurprise());
-		registerSuprise(new CakeSurprise());
+		registerSurprise(new CookedFoodSurprise());
+		registerSurprise(new GoldenAppleSurprise());
+		registerSurprise(new DiamondBlockSurprise());
+		registerSurprise(new DiamondBlockPillarSurprise());
+		registerSurprise(new EmeraldBlockSurprise());
+		registerSurprise(new IronBlockSurprise());
+		registerSurprise(new TamedDogsSurprise());
+		registerSurprise(new TamedCatsSurprise());
+		registerSurprise(new ValuablesSurprise());
+		registerSurprise(new LuckySwordSurprise());
+		registerSurprise(new LuckyPickaxeSurprise());
+		registerSurprise(new LuckyAxeSurprise());
+		registerSurprise(new XPRainSurprise());
+		registerSurprise(new LuckyHelmetSurprise());
+		registerSurprise(new LuckyChestplateSurprise());
+		registerSurprise(new LuckyLeggingsSurprise());
+		registerSurprise(new LuckyBootsSurprise());
+		registerSurprise(new LuckyPotionsSurprise());
+		registerSurprise(new UnluckyPotionsSurprise());
+		registerSurprise(new CakeSurprise());
 		
 		// Neutral Surprises
-		registerSuprise(new GrootSurprise());
-		registerSuprise(new RawFoodSurprise());
-		registerSuprise(new FishSurprise());
-		registerSuprise(new WanderingTraderSurprise());
-		registerSuprise(new RainbowSheepSurprise());
-		registerSuprise(new ChickenRainSurprise());
-		registerSuprise(new DyeSurprise());
-		registerSuprise(new HaySurprise());
-		registerSuprise(new CookieSurprise());
-		registerSuprise(new JebSheepSurprise());
-		registerSuprise(new VillagersSurprise());
-		registerSuprise(new PotatOSSurprise());
-		registerSuprise(new JerrySlimeSurprise());
+		registerSurprise(new GrootSurprise());
+		registerSurprise(new RawFoodSurprise());
+		registerSurprise(new FishSurprise());
+		registerSurprise(new WanderingTraderSurprise());
+		registerSurprise(new RainbowSheepSurprise());
+		registerSurprise(new ChickenRainSurprise());
+		registerSurprise(new DyeSurprise());
+		registerSurprise(new HaySurprise());
+		registerSurprise(new CookieSurprise());
+		registerSurprise(new JebSheepSurprise());
+		registerSurprise(new VillagersSurprise());
+		registerSurprise(new PotatOSSurprise());
+		registerSurprise(new JerrySlimeSurprise());
 
 		// Unlucky Surprises
-		registerSuprise(new ChargedCreeperSurprise());
-		registerSuprise(new WitchSurprise());
-		registerSuprise(new ExplosionSurprise());
-		registerSuprise(new VoidHoleSurprise());
-		registerSuprise(new AnvilRainSurprise());
-		registerSuprise(new EnclosedWaterSurprise());
-		registerSuprise(new TNTRainSurprise());
-		registerSuprise(new FlyingCreeperSurprise());
-		registerSuprise(new FlyingTNTSurprise());
-		registerSuprise(new FakeDiamondBlock());
-		registerSuprise(new BryanZombieSurprise());
-		registerSuprise(new WalshrusSurprise());
-		registerSuprise(new HighJumpSurprise());
-		registerSuprise(new CobwebSurprise());
-		registerSuprise(new GiantSlimeSurprise());
-		registerSuprise(new ZombiePigmenSurprise());
+		registerSurprise(new ChargedCreeperSurprise());
+		registerSurprise(new WitchSurprise());
+		registerSurprise(new ExplosionSurprise());
+		registerSurprise(new VoidHoleSurprise());
+		registerSurprise(new AnvilRainSurprise());
+		registerSurprise(new EnclosedWaterSurprise());
+		registerSurprise(new TNTRainSurprise());
+		registerSurprise(new FlyingCreeperSurprise());
+		registerSurprise(new FlyingTNTSurprise());
+		registerSurprise(new FakeDiamondBlock());
+		registerSurprise(new BryanZombieSurprise());
+		registerSurprise(new WalshrusSurprise());
+		registerSurprise(new HighJumpSurprise());
+		registerSurprise(new CobwebSurprise());
+		registerSurprise(new GiantSlimeSurprise());
+		registerSurprise(new ZombiePigmenSurprise());
 		
 		// Pandora Box Surprises
-		registerSuprise(new ReapersSurprise());
-		registerSuprise(new IronGolemsSurprise());
+		registerSurprise(new ReapersSurprise());
+		registerSurprise(new IronGolemsSurprise());
 
 		// CustomItem Surprises
 		if (cfg.getValue("custom") != null && cfg.getKeys("custom").size() > 0) {
@@ -284,7 +284,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 					}
 
 					if (items.size() > 0) {
-						registerSuprise(new CustomItemSurprise(name, items, luckLevel));
+						registerSurprise(new CustomItemSurprise(name, items, luckLevel));
 					}
 				}
 			}
@@ -301,7 +301,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 		return potion;
 	}
 
-	public void registerSuprise(Surprise surprise) {
+	public void registerSurprise(Surprise surprise) {
 		if (surprise instanceof CustomItemSurprise) {
 			if (cfg.getBoolean("custom." + surprise.getName() + ".enabled")) {
 				surprises.add(surprise);
