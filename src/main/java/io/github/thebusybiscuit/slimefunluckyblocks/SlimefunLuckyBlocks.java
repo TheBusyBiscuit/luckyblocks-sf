@@ -60,6 +60,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
@@ -216,9 +217,22 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 				if (cfg.getValue("custom." + name + ".items") != null && cfg.getKeys("custom." + name + ".items").size() > 0) {
 					for (String itemID : cfg.getKeys("custom." + name + ".items")) {
-						ItemStack item;
+						ItemStack item = null;
 						String itemPath = "custom." + name + ".items." + itemID;
-						if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
+
+						if (cfg.getString(itemPath + ".slimefun_item") != null) {
+							SlimefunItem sfItem = SlimefunItem.getByID(cfg.getString(itemPath + ".slimefun_item").toUpperCase(Locale.ROOT));
+
+							if (sfItem != null) {
+								item = sfItem.getItem();
+
+								if (cfg.getInt(itemPath + ".amount") > 1) {
+									item.setAmount(cfg.getInt(itemPath + ".amount"));
+								}
+							} else {
+								getLogger().log(Level.WARNING, "Couldn't load SlimefunItem '" + cfg.getString(itemPath + ".slimefun_item").toUpperCase(Locale.ROOT) + "' to CustomItem Surprise '" + name + "'");
+							}
+						} else if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
 							item = new ItemStack(Material.getMaterial(cfg.getString(itemPath + ".type")));
 							ItemMeta itemMeta = item.getItemMeta();
 
@@ -263,6 +277,8 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 								}
 							}
 							item.setItemMeta(itemMeta);
+						}
+						if (item != null) {
 							items.add(item);
 						}
 					}

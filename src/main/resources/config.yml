@@ -4,7 +4,7 @@ world-blacklist:
 chance: 2
 debug: false
 custom:
-  ExampleSurprise:
+  ExampleSurprise1:
     enabled: false
     lucklevel: LUCKY
     items:
@@ -16,3 +16,10 @@ custom:
           - '&7This is the lore.'
         enchants:
           - DAMAGE_ALL:5
+  ExampleSurprise2:
+    enabled: false
+    lucklevel: LUCKY
+    items:
+      '1':
+        slimefun_item: 'BIRTHDAY_CAKE'
+        amount: 1
