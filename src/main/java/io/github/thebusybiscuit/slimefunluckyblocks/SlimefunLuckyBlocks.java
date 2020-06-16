@@ -1,23 +1,8 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Rotatable;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
-
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.utils.PatternUtils;
+import io.github.thebusybiscuit.slimefunluckyblocks.surprises.CustomItemSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.lucky.CakeSurprise;
@@ -75,6 +60,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
@@ -83,6 +69,27 @@ import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullBlock;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Rotatable;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
 
 public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
@@ -135,63 +142,153 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
 	private void registerSurprises() {
 		// Lucky Surprises
-		registerSuprise(new CookedFoodSurprise());
-		registerSuprise(new GoldenAppleSurprise());
-		registerSuprise(new DiamondBlockSurprise());
-		registerSuprise(new DiamondBlockPillarSurprise());
-		registerSuprise(new EmeraldBlockSurprise());
-		registerSuprise(new IronBlockSurprise());
-		registerSuprise(new TamedDogsSurprise());
-		registerSuprise(new TamedCatsSurprise());
-		registerSuprise(new ValuablesSurprise());
-		registerSuprise(new LuckySwordSurprise());
-		registerSuprise(new LuckyPickaxeSurprise());
-		registerSuprise(new LuckyAxeSurprise());
-		registerSuprise(new XPRainSurprise());
-		registerSuprise(new LuckyHelmetSurprise());
-		registerSuprise(new LuckyChestplateSurprise());
-		registerSuprise(new LuckyLeggingsSurprise());
-		registerSuprise(new LuckyBootsSurprise());
-		registerSuprise(new LuckyPotionsSurprise());
-		registerSuprise(new UnluckyPotionsSurprise());
-		registerSuprise(new CakeSurprise());
+		registerSurprise(new CookedFoodSurprise());
+		registerSurprise(new GoldenAppleSurprise());
+		registerSurprise(new DiamondBlockSurprise());
+		registerSurprise(new DiamondBlockPillarSurprise());
+		registerSurprise(new EmeraldBlockSurprise());
+		registerSurprise(new IronBlockSurprise());
+		registerSurprise(new TamedDogsSurprise());
+		registerSurprise(new TamedCatsSurprise());
+		registerSurprise(new ValuablesSurprise());
+		registerSurprise(new LuckySwordSurprise());
+		registerSurprise(new LuckyPickaxeSurprise());
+		registerSurprise(new LuckyAxeSurprise());
+		registerSurprise(new XPRainSurprise());
+		registerSurprise(new LuckyHelmetSurprise());
+		registerSurprise(new LuckyChestplateSurprise());
+		registerSurprise(new LuckyLeggingsSurprise());
+		registerSurprise(new LuckyBootsSurprise());
+		registerSurprise(new LuckyPotionsSurprise());
+		registerSurprise(new UnluckyPotionsSurprise());
+		registerSurprise(new CakeSurprise());
 		
 		// Neutral Surprises
-		registerSuprise(new GrootSurprise());
-		registerSuprise(new RawFoodSurprise());
-		registerSuprise(new FishSurprise());
-		registerSuprise(new WanderingTraderSurprise());
-		registerSuprise(new RainbowSheepSurprise());
-		registerSuprise(new ChickenRainSurprise());
-		registerSuprise(new DyeSurprise());
-		registerSuprise(new HaySurprise());
-		registerSuprise(new CookieSurprise());
-		registerSuprise(new JebSheepSurprise());
-		registerSuprise(new VillagersSurprise());
-		registerSuprise(new PotatOSSurprise());
-		registerSuprise(new JerrySlimeSurprise());
+		registerSurprise(new GrootSurprise());
+		registerSurprise(new RawFoodSurprise());
+		registerSurprise(new FishSurprise());
+		registerSurprise(new WanderingTraderSurprise());
+		registerSurprise(new RainbowSheepSurprise());
+		registerSurprise(new ChickenRainSurprise());
+		registerSurprise(new DyeSurprise());
+		registerSurprise(new HaySurprise());
+		registerSurprise(new CookieSurprise());
+		registerSurprise(new JebSheepSurprise());
+		registerSurprise(new VillagersSurprise());
+		registerSurprise(new PotatOSSurprise());
+		registerSurprise(new JerrySlimeSurprise());
 
 		// Unlucky Surprises
-		registerSuprise(new ChargedCreeperSurprise());
-		registerSuprise(new WitchSurprise());
-		registerSuprise(new ExplosionSurprise());
-		registerSuprise(new VoidHoleSurprise());
-		registerSuprise(new AnvilRainSurprise());
-		registerSuprise(new EnclosedWaterSurprise());
-		registerSuprise(new TNTRainSurprise());
-		registerSuprise(new FlyingCreeperSurprise());
-		registerSuprise(new FlyingTNTSurprise());
-		registerSuprise(new FakeDiamondBlock());
-		registerSuprise(new BryanZombieSurprise());
-		registerSuprise(new WalshrusSurprise());
-		registerSuprise(new HighJumpSurprise());
-		registerSuprise(new CobwebSurprise());
-		registerSuprise(new GiantSlimeSurprise());
-		registerSuprise(new ZombiePigmenSurprise());
+		registerSurprise(new ChargedCreeperSurprise());
+		registerSurprise(new WitchSurprise());
+		registerSurprise(new ExplosionSurprise());
+		registerSurprise(new VoidHoleSurprise());
+		registerSurprise(new AnvilRainSurprise());
+		registerSurprise(new EnclosedWaterSurprise());
+		registerSurprise(new TNTRainSurprise());
+		registerSurprise(new FlyingCreeperSurprise());
+		registerSurprise(new FlyingTNTSurprise());
+		registerSurprise(new FakeDiamondBlock());
+		registerSurprise(new BryanZombieSurprise());
+		registerSurprise(new WalshrusSurprise());
+		registerSurprise(new HighJumpSurprise());
+		registerSurprise(new CobwebSurprise());
+		registerSurprise(new GiantSlimeSurprise());
+		registerSurprise(new ZombiePigmenSurprise());
 		
 		// Pandora Box Surprises
-		registerSuprise(new ReapersSurprise());
-		registerSuprise(new IronGolemsSurprise());
+		registerSurprise(new ReapersSurprise());
+		registerSurprise(new IronGolemsSurprise());
+
+		// CustomItem Surprises
+		if (cfg.getValue("custom") != null && cfg.getKeys("custom").size() > 0) {
+			for (String name : cfg.getKeys("custom")) {
+				LuckLevel luckLevel = LuckLevel.NEUTRAL;
+				List<ItemStack> items = new ArrayList<>();
+
+				if (cfg.getString("custom." + name + ".lucklevel") != null) {
+					try {
+						luckLevel = LuckLevel.valueOf(cfg.getString("custom." + name + ".lucklevel").toUpperCase());
+					} catch (IllegalArgumentException ex) {
+						getLogger().log(Level.WARNING, "Couldn't load lucklevel of CustomItem Surprise '" + name + "', now using NEUTRAL (default)");
+						getLogger().log(Level.WARNING, "Valid lucklevel types: LUCKY, NEUTRAL, UNLUCKY, PANDORA");
+					}
+				}
+
+				if (cfg.getValue("custom." + name + ".items") != null && cfg.getKeys("custom." + name + ".items").size() > 0) {
+					for (String itemID : cfg.getKeys("custom." + name + ".items")) {
+						ItemStack item = null;
+						String itemPath = "custom." + name + ".items." + itemID;
+
+						if (cfg.getString(itemPath + ".slimefun_item") != null) {
+							SlimefunItem sfItem = SlimefunItem.getByID(cfg.getString(itemPath + ".slimefun_item").toUpperCase(Locale.ROOT));
+
+							if (sfItem != null) {
+								item = sfItem.getItem();
+
+								if (cfg.getInt(itemPath + ".amount") > 1) {
+									item.setAmount(cfg.getInt(itemPath + ".amount"));
+								}
+							} else {
+								getLogger().log(Level.WARNING, "Couldn't load SlimefunItem '" + cfg.getString(itemPath + ".slimefun_item").toUpperCase(Locale.ROOT) + "' to CustomItem Surprise '" + name + "'");
+							}
+						} else if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
+							item = new ItemStack(Material.getMaterial(cfg.getString(itemPath + ".type")));
+							ItemMeta itemMeta = item.getItemMeta();
+
+							if (cfg.getInt(itemPath + ".amount") > 1) {
+								item.setAmount(cfg.getInt(itemPath + ".amount"));
+							}
+
+							if (cfg.getString(itemPath + ".displayname") != null) {
+								itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', cfg.getString(itemPath + ".displayname")));
+							}
+
+							if (cfg.getStringList(itemPath + ".lore").size() > 0) {
+								List<String> lore = new ArrayList<>();
+								for (String l : cfg.getStringList(itemPath + ".lore")) {
+									lore.add(ChatColor.translateAlternateColorCodes('&', l));
+								}
+								itemMeta.setLore(lore);
+							}
+
+							if (cfg.getStringList(itemPath + ".enchants").size() > 0) {
+								for (String ench : cfg.getStringList(itemPath + ".enchants")) {
+									String[] split = ench.split(":");
+									String enchName = split[0];
+									Enchantment enchantment;
+									int level = 0;
+
+									if (Enchantment.getByName(enchName.toUpperCase(Locale.ROOT)) == null) {
+										getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant for CustomItem Surprise '" + name + "'");
+										continue;
+									}
+									enchantment = Enchantment.getByName(enchName.toUpperCase(Locale.ROOT));
+
+									if (split.length > 1) {
+										if (!PatternUtils.NUMERIC.matcher(split[1]).matches()) {
+											getLogger().log(Level.WARNING, "Couldn't set '" + enchName + "' enchant with level '" + split[1] + "' for CustomItem Surprise '" + name + "'");
+											continue;
+										}
+										level = Integer.parseInt(split[1]);
+									}
+
+									itemMeta.addEnchant(enchantment, level, true);
+								}
+							}
+							item.setItemMeta(itemMeta);
+						}
+						if (item != null) {
+							items.add(item);
+						}
+					}
+
+					if (items.size() > 0) {
+						registerSurprise(new CustomItemSurprise(name, items, luckLevel));
+					}
+				}
+			}
+		}
 	}
 
 	public static ItemStack createPotion(Color color, PotionEffect effect, boolean lucky) {
@@ -204,7 +301,14 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 		return potion;
 	}
 
-	public void registerSuprise(Surprise surprise) {
+	public void registerSurprise(Surprise surprise) {
+		if (surprise instanceof CustomItemSurprise) {
+			if (cfg.getBoolean("custom." + surprise.getName() + ".enabled")) {
+				surprises.add(surprise);
+			}
+			return;
+		}
+
 		if (cfg.contains("events." + surprise.getName())) {
 			if (cfg.getBoolean("events." + surprise.getName())) {
 				surprises.add(surprise);

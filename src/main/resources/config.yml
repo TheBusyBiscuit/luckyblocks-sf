@@ -3,3 +3,23 @@ world-blacklist:
 - world_the_end
 chance: 2
 debug: false
+custom:
+  ExampleSurprise1:
+    enabled: false
+    lucklevel: LUCKY
+    items:
+      '1':
+        type: DIAMOND_SWORD
+        amount: 1
+        displayname: '&c&lExample Sword'
+        lore:
+          - '&7This is the lore.'
+        enchants:
+          - DAMAGE_ALL:5
+  ExampleSurprise2:
+    enabled: false
+    lucklevel: LUCKY
+    items:
+      '1':
+        slimefun_item: 'BIRTHDAY_CAKE'
+        amount: 1
