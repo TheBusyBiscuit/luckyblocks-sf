@@ -23,3 +23,9 @@ custom:
       '1':
         slimefun_item: 'BIRTHDAY_CAKE'
         amount: 1
+  ExampleSurprise3:
+    enabled: false
+    lucklevel: UNLUCKY
+    commands:
+      - 'tell {player} You''re a dead person now!'
+      - 'mm mobs spawn ScaryMob 1 {world},{x},{y},{z}'
