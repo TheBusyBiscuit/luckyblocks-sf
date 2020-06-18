@@ -1,8 +1,13 @@
+options:
+  auto-update: true
+  
+chance: 2
+debug: false
+
 world-blacklist:
 - world_nether
 - world_the_end
-chance: 2
-debug: false
+
 custom:
   ExampleSurprise1:
     enabled: false
