@@ -204,6 +204,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
             for (String name : cfg.getKeys("custom")) {
                 LuckLevel luckLevel = LuckLevel.NEUTRAL;
                 List<ItemStack> items = new ArrayList<>();
+                List<String> commands = new ArrayList<>();
 
                 if (cfg.getString("custom." + name + ".lucklevel") != null) {
                     try {
@@ -213,6 +214,10 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
                         getLogger().log(Level.WARNING, "Couldn\"t load lucklevel of CustomItem Surprise \"{0}\", now using NEUTRAL (default)", name);
                         getLogger().log(Level.WARNING, "Valid lucklevel types: LUCKY, NEUTRAL, UNLUCKY, PANDORA");
                     }
+                }
+
+                if (cfg.getValue("custom." + name + ".commands") != null && !cfg.getStringList("custom." + name + ".commands").isEmpty()) {
+                    commands.addAll(cfg.getStringList("custom." + name + ".commands"));
                 }
 
                 if (cfg.getValue("custom." + name + ".items") != null && !cfg.getKeys("custom." + name + ".items").isEmpty()) {
@@ -287,10 +292,9 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
                             items.add(item);
                         }
                     }
-
-                    if (!items.isEmpty()) {
-                        registerSurprise(new CustomItemSurprise(name, items, luckLevel));
-                    }
+                }
+                if (!items.isEmpty() || !commands.isEmpty()) {
+                    registerSurprise(new CustomItemSurprise(name, items, commands, luckLevel));
                 }
             }
         }

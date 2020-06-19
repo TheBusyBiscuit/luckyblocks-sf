@@ -28,3 +28,9 @@ custom:
       '1':
         slimefun_item: 'BIRTHDAY_CAKE'
         amount: 1
+  ExampleSurprise3:
+    enabled: false
+    lucklevel: UNLUCKY
+    commands:
+      - 'tell {player} You''re a dead person now!'
+      - 'execute as {player} run summon zombie {x} {y} {z}'
