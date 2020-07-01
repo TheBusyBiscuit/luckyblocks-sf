@@ -114,7 +114,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
             }
         }
 
-        Category category = new Category(new NamespacedKey(this, "lucky_blocks"), new CustomItem(SkullItem.fromBase64(TEXTURE), "&rLucky Blocks"));
+        Category category = new Category(new NamespacedKey(this, "lucky_blocks"), new CustomItem(SkullItem.fromHash(TEXTURE), "&rLucky Blocks"));
 
         SlimefunItemStack luckyBlock = new SlimefunItemStack("LUCKY_BLOCK", TEXTURE, "&rLucky Block", "&7Luck: &r0");
         SlimefunItemStack veryLuckyBlock = new SlimefunItemStack("LUCKY_BLOCK_LUCKY", TEXTURE, "&rVery lucky Block", "&7Luck: &a+80");
