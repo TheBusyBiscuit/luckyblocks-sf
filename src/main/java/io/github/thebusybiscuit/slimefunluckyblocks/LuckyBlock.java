@@ -34,7 +34,7 @@ public class LuckyBlock extends SlimefunItem {
 				List<Surprise> luckySurprises = surprises.stream().filter(predicate).collect(Collectors.toList());
 				luckySurprises.get(random.nextInt(luckySurprises.size())).activate(random, p, b.getLocation());
 			}
-			return false;
+			return true;
 		});
 	}
 	
