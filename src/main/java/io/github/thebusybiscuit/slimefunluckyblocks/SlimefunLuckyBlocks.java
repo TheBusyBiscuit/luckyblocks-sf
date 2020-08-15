@@ -12,9 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Skull;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Rotatable;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -345,7 +343,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         });
         b.setBlockData(data);
 
-        SkullBlock.setFromBase64(b, TEXTURE);
+        SkullBlock.setFromHash(b, TEXTURE);
         BlockStorage.store(b, "LUCKY_BLOCK");
 
         if (getCfg().getBoolean("debug")) {
