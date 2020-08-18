@@ -335,14 +335,14 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
     public void spawnLuckyBlock(Block b) {
         BlockData data = Material.PLAYER_HEAD.createBlockData(bd -> {
             if (bd instanceof Rotatable) {
-                Rotatable skull = (Rotatable) b.getBlockData();
+                Rotatable skull = (Rotatable) bd;
 
                 BlockFace rotation = blockfaces[ThreadLocalRandom.current().nextInt(blockfaces.length)];
                 skull.setRotation(rotation);
             }
         });
-        b.setBlockData(data);
 
+        b.setBlockData(data);
         SkullBlock.setFromHash(b, TEXTURE);
         BlockStorage.store(b, "LUCKY_BLOCK");
 
