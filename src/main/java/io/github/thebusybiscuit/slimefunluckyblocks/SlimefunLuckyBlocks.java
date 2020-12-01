@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -84,7 +85,6 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullBlock;
@@ -122,13 +122,17 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         SlimefunItemStack veryUnluckyBlock = new SlimefunItemStack("LUCKY_BLOCK_UNLUCKY", TEXTURE, "&rVery unlucky Block", "&7Luck: &c-80");
         SlimefunItemStack pandorasBox = new SlimefunItemStack("PANDORAS_BOX", "86c7dde512871bd607b77e6635ad39f44f2d5b4729e60273f1b14fba9a86a", "&5Pandora\"s Box", "&7Luck: &c&oERROR");
 
-        new LuckyBlock(category, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] { SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K }).register(this, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
+        new LuckyBlock(category, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new ItemStack[] { SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K }).register(this, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
 
-        new LuckyBlock(category, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] { null, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, luckyBlock, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
+        new LuckyBlock(category, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new ItemStack[] { null, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, luckyBlock, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
 
-        new LuckyBlock(category, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] { null, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), luckyBlock, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
+        new LuckyBlock(category, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new ItemStack[] { null, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), luckyBlock, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
 
-        new LuckyBlock(category, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] { new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), luckyBlock, new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS) }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
+        new LuckyBlock(category, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new ItemStack[] { new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), luckyBlock, new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS) }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
 
         new WorldGenerator(this);
 
@@ -210,8 +214,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
                 if (cfg.getString("custom." + name + ".lucklevel") != null) {
                     try {
                         luckLevel = LuckLevel.valueOf(cfg.getString("custom." + name + ".lucklevel").toUpperCase());
-                    }
-                    catch (IllegalArgumentException ex) {
+                    } catch (IllegalArgumentException ex) {
                         getLogger().log(Level.WARNING, "Couldn\"t load lucklevel of CustomItem Surprise \"{0}\", now using NEUTRAL (default)", name);
                         getLogger().log(Level.WARNING, "Valid lucklevel types: LUCKY, NEUTRAL, UNLUCKY, PANDORA");
                     }
@@ -236,12 +239,10 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
                                 if (cfg.getInt(itemPath + ".amount") > 1) {
                                     item.setAmount(cfg.getInt(itemPath + ".amount"));
                                 }
-                            }
-                            else {
+                            } else {
                                 getLogger().log(Level.WARNING, "Could not load SlimefunItem \"{0}\" to custom surprise \"{1}\"", new Object[] { id, name });
                             }
-                        }
-                        else if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
+                        } else if (cfg.getString(itemPath + ".type") != null && Material.getMaterial(cfg.getString(itemPath + ".type")) != null) {
                             item = new ItemStack(Material.getMaterial(cfg.getString(itemPath + ".type")));
                             ItemMeta itemMeta = item.getItemMeta();
 
@@ -279,8 +280,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
                                         }
 
                                         itemMeta.addEnchant(enchantment, level, true);
-                                    }
-                                    else {
+                                    } else {
                                         getLogger().log(Level.WARNING, "Could not set \"{0}\" enchant for custom surprise \"{1}\"", new Object[] { enchName, name });
                                     }
                                 }
@@ -324,8 +324,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
             if (cfg.getBoolean("events." + surprise.getName())) {
                 surprises.add(surprise);
             }
-        }
-        else {
+        } else {
             cfg.setValue("events." + surprise.getName(), true);
             cfg.save();
             surprises.add(surprise);
