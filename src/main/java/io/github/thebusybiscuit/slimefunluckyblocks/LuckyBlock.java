@@ -1,7 +1,7 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -48,8 +49,8 @@ public class LuckyBlock extends SlimefunItem {
 
     @Override
     public Collection<ItemStack> getDrops() {
-        // Disable any drops from Lucky blocks
-        return Collections.emptyList();
+        // Disable any drops from Lucky blocks (Air is not dropped but still counts as "overridden drops")
+        return Arrays.asList(new ItemStack(Material.AIR));
     }
 
     public void register(SlimefunLuckyBlocks plugin, Collection<Surprise> surprises, Predicate<Surprise> predicate) {
