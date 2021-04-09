@@ -1,20 +1,23 @@
 package io.github.thebusybiscuit.slimefunluckyblocks;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.bukkit.Material;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 public class LuckyBlock extends SlimefunItem {
@@ -25,17 +28,28 @@ public class LuckyBlock extends SlimefunItem {
     public LuckyBlock(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
 
-        registerBlockHandler(getId(), (p, b, tool, reason) -> {
-            BlockStorage.clearBlockInfo(b);
-            b.setType(Material.AIR);
+        addItemHandler(onBlockBreak());
+    }
 
-            if (p != null) {
+    private BlockBreakHandler onBlockBreak() {
+        return new BlockBreakHandler(false, false) {
+
+            @Override
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
                 Random random = ThreadLocalRandom.current();
                 List<Surprise> luckySurprises = surprises.stream().filter(predicate).collect(Collectors.toList());
-                luckySurprises.get(random.nextInt(luckySurprises.size())).activate(random, p, b.getLocation());
+
+                Player p = e.getPlayer();
+                Location loc = e.getBlock().getLocation();
+                luckySurprises.get(random.nextInt(luckySurprises.size())).activate(random, p, loc);
             }
-            return false;
-        });
+        };
+    }
+
+    @Override
+    public Collection<ItemStack> getDrops() {
+        // Disable any drops from Lucky blocks
+        return Collections.emptyList();
     }
 
     public void register(SlimefunLuckyBlocks plugin, Collection<Surprise> surprises, Predicate<Surprise> predicate) {
