@@ -15,15 +15,16 @@ import org.bukkit.potion.PotionEffectType;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
 
 public final class ReapersSurprise implements Surprise {
 
     private final ItemStack hoe;
 
     public ReapersSurprise() {
-        hoe = new CustomItem(Material.GOLDEN_HOE, "&e&lLucky Hoe");
+        hoe = new CustomItemStack(Material.GOLDEN_HOE, "&e&lLucky Hoe");
         hoe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
         hoe.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 10);
         hoe.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 5);
@@ -42,7 +43,7 @@ public final class ReapersSurprise implements Surprise {
             zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(120D);
             zombie.setHealth(120D);
 
-            zombie.getEquipment().setHelmet(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTkzN2FmMjYzMzI2ZTJiNDA5MDQyNzFiODMxYzNiMTc2ZWEyMWYwMTg2YmZhZjRlMTZlZWUxZTI4OWRkYWQ4In19fQ=="));
+            zombie.getEquipment().setHelmet(PlayerHead.getItemStack(PlayerSkin.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTkzN2FmMjYzMzI2ZTJiNDA5MDQyNzFiODMxYzNiMTc2ZWEyMWYwMTg2YmZhZjRlMTZlZWUxZTI4OWRkYWQ4In19fQ==")));
             zombie.getEquipment().setHelmetDropChance(0F);
 
             zombie.getEquipment().setItemInMainHand(hoe.clone());

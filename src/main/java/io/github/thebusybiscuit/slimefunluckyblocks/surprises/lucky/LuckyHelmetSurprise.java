@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class LuckyHelmetSurprise implements Surprise {
 
     private final ItemStack helmet;
 
     public LuckyHelmetSurprise() {
-        helmet = new CustomItem(Material.DIAMOND_HELMET, "&e&lLucky Helmet");
+        helmet = new CustomItemStack(Material.DIAMOND_HELMET, "&e&lLucky Helmet");
         helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
         helmet.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
         helmet.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);

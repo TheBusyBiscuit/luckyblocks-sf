@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class LuckyLeggingsSurprise implements Surprise {
 
     private final ItemStack leggings;
 
     public LuckyLeggingsSurprise() {
-        leggings = new CustomItem(Material.DIAMOND_LEGGINGS, "&e&lLucky Leggings");
+        leggings = new CustomItemStack(Material.DIAMOND_LEGGINGS, "&e&lLucky Leggings");
         leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
         leggings.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
         leggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);

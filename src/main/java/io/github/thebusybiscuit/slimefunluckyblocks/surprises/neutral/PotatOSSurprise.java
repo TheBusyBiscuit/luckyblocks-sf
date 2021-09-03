@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class PotatOSSurprise implements Surprise {
 	
@@ -19,7 +19,7 @@ public final class PotatOSSurprise implements Surprise {
 
 	@Override
 	public void activate(Random random, Player p, Location l) {
-		l.getWorld().dropItemNaturally(l, new CustomItem(Material.POTATO, "&e&lPotatOS"));
+		l.getWorld().dropItemNaturally(l, new CustomItemStack(Material.POTATO, "&e&lPotatOS"));
 	}
 
 	@Override

@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class LuckyChestplateSurprise implements Surprise {
 
     private final ItemStack chestplate;
 
     public LuckyChestplateSurprise() {
-        chestplate = new CustomItem(Material.DIAMOND_CHESTPLATE, "&e&lLucky Chestplate");
+        chestplate = new CustomItemStack(Material.DIAMOND_CHESTPLATE, "&e&lLucky Chestplate");
         chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
         chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
         chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);
