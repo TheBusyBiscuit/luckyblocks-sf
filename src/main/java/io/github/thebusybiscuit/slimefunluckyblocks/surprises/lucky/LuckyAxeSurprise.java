@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class LuckyAxeSurprise implements Surprise {
 	
 	private final ItemStack axe;
 	
 	public LuckyAxeSurprise() {
-		axe = new CustomItem(Material.GOLDEN_AXE, "&e&lLucky Axe");
+		axe = new CustomItemStack(Material.GOLDEN_AXE, "&e&lLucky Axe");
 		axe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
 		axe.addUnsafeEnchantment(Enchantment.DIG_SPEED, 10);
 		axe.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 10);

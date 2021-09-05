@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public final class LuckySwordSurprise implements Surprise {
 	
 	private final ItemStack sword;
 	
 	public LuckySwordSurprise() {
-		sword = new CustomItem(Material.GOLDEN_SWORD, "&e&lLucky Sword");
+		sword = new CustomItemStack(Material.GOLDEN_SWORD, "&e&lLucky Sword");
 		sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
 		sword.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 10);
 		sword.addUnsafeEnchantment(Enchantment.DURABILITY, 10);

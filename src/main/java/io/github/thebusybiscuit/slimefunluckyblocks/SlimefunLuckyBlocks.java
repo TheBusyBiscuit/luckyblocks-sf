@@ -22,9 +22,19 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.common.ChatColors;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.common.CommonPatterns;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import io.github.thebusybiscuit.slimefun4.utils.PatternUtils;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.CustomItemSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.LuckLevel;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.Surprise;
@@ -79,18 +89,7 @@ import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.VoidHoleSu
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WalshrusSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.WitchSurprise;
 import io.github.thebusybiscuit.slimefunluckyblocks.surprises.unlucky.ZombiePigmenSurprise;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
-import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullBlock;
-import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
-import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 
 public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
@@ -107,15 +106,11 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         // Setting up bStats
         new Metrics(this, 4858);
 
-        if (getDescription().getVersion().startsWith("DEV - ")) {
-            Updater updater = new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/luckyblocks-sf/master");
-
-            if (cfg.getBoolean("options.auto-update")) {
-                updater.start();
-            }
+        if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
+            new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/luckyblocks-sf/master").start();
         }
 
-        Category category = new Category(new NamespacedKey(this, "lucky_blocks"), new CustomItem(SkullItem.fromHash(TEXTURE), "&rLucky Blocks"));
+        ItemGroup itemGroup = new ItemGroup(new NamespacedKey(this, "lucky_blocks"), new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(TEXTURE)), "&rLucky Blocks"));
 
         SlimefunItemStack luckyBlock = new SlimefunItemStack("LUCKY_BLOCK", TEXTURE, "&fLucky Block", "&7Luck: &f0");
         SlimefunItemStack veryLuckyBlock = new SlimefunItemStack("LUCKY_BLOCK_LUCKY", TEXTURE, "&fVery lucky Block", "&7Luck: &a+80");
@@ -123,16 +118,16 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         SlimefunItemStack pandorasBox = new SlimefunItemStack("PANDORAS_BOX", "86c7dde512871bd607b77e6635ad39f44f2d5b4729e60273f1b14fba9a86a", "&5Pandora\"s Box", "&7Luck: &c&oERROR");
 
         // @formatter:off
-        new LuckyBlock(category, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new LuckyBlock(itemGroup, luckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
         new ItemStack[] { SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, new ItemStack(Material.DISPENSER), SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K, SlimefunItems.GOLD_12K }).register(this, surprises, s -> s.getLuckLevel() != LuckLevel.PANDORA);
 
-        new LuckyBlock(category, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new LuckyBlock(itemGroup, veryLuckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
         new ItemStack[] { null, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, luckyBlock, SlimefunItems.GOLD_12K, null, SlimefunItems.GOLD_12K, null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.LUCKY);
 
-        new LuckyBlock(category, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new LuckyBlock(itemGroup, veryUnluckyBlock, RecipeType.ENHANCED_CRAFTING_TABLE,
         new ItemStack[] { null, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), luckyBlock, new ItemStack(Material.SPIDER_EYE), null, new ItemStack(Material.SPIDER_EYE), null }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.UNLUCKY);
 
-        new LuckyBlock(category, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE, 
+        new LuckyBlock(itemGroup, pandorasBox, RecipeType.ENHANCED_CRAFTING_TABLE,
         new ItemStack[] { new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), luckyBlock, new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.LAPIS_BLOCK), new ItemStack(Material.OAK_PLANKS) }).register(this, surprises, s -> s.getLuckLevel() == LuckLevel.PANDORA);
         // @formatter:on
 
@@ -233,7 +228,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
                         if (cfg.getString(itemPath + ".slimefun_item") != null) {
                             String id = cfg.getString(itemPath + ".slimefun_item").toUpperCase(Locale.ROOT);
-                            SlimefunItem sfItem = SlimefunItem.getByID(id);
+                            SlimefunItem sfItem = SlimefunItem.getById(id);
 
                             if (sfItem != null) {
                                 item = sfItem.getItem();
@@ -273,7 +268,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
 
                                     if (enchantment != null) {
                                         if (split.length == 2) {
-                                            if (!PatternUtils.NUMERIC.matcher(split[1]).matches()) {
+                                            if (!CommonPatterns.NUMERIC.matcher(split[1]).matches()) {
                                                 getLogger().log(Level.WARNING, "Could not set \"{0}\" enchant with level \"{1}\" for custom surprise \"{2}\"", new Object[] { enchName, split[1], name });
                                                 continue;
                                             }
@@ -344,7 +339,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         });
 
         b.setBlockData(data);
-        SkullBlock.setFromHash(b, TEXTURE);
+        PlayerHead.setSkin(b, PlayerSkin.fromHashCode(TEXTURE), true);
         BlockStorage.store(b, "LUCKY_BLOCK");
 
         if (getCfg().getBoolean("debug")) {
