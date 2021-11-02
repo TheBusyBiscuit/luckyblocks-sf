@@ -37,7 +37,7 @@ public class WorldGenerator implements Listener {
             int z = e.getChunk().getZ() * 16 + random.nextInt(16);
             int y;
 
-            if (plugin.getMinecraftVersion().getMajorVersion() > 17) {
+            if (plugin.getMinecraftVersion().getMajorVersion() >= 17) {
                 // No import to avoid this trying to load HeightMap on 1.16 or below
                 y = e.getWorld().getHighestBlockYAt(x, z, org.bukkit.HeightMap.WORLD_SURFACE);
             } else {
