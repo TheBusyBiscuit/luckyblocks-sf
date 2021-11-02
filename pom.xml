@@ -69,6 +69,10 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>io.github.thebusybiscuit.slimefunluckyblocks.bstats</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>io.github.bakedlibs.dough</pattern>
+                            <shadedPattern>io.github.thebusybiscuit.slimefunluckyblocks.dough</shadedPattern>
+                        </relocation>
                     </relocations>
 
                     <!-- Exclude unneeded metadata files from shaded dependencies -->
@@ -113,6 +117,12 @@
                     <artifactId>dough-api</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.baked-libs</groupId>
+            <artifactId>dough-common</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
         <dependency>

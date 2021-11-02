@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 
+import io.github.bakedlibs.dough.versions.MinecraftVersion;
+import io.github.bakedlibs.dough.versions.UnknownServerVersionException;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -99,12 +101,20 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
     private final List<Surprise> surprises = new LinkedList<>();
     private final BlockFace[] blockfaces = { BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST, BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST, BlockFace.NORTH_WEST };
 
+    private MinecraftVersion minecraftVersion;
+
     @Override
     public void onEnable() {
         cfg = new Config(this);
 
         // Setting up bStats
         new Metrics(this, 4858);
+
+        try {
+            minecraftVersion = MinecraftVersion.get();
+        } catch (UnknownServerVersionException e) {
+            minecraftVersion = new MinecraftVersion(0, 0, 0);
+        }
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
             new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/luckyblocks-sf/master").start();
@@ -361,4 +371,7 @@ public class SlimefunLuckyBlocks extends JavaPlugin implements SlimefunAddon {
         return "https://github.com/TheBusyBiscuit/luckyblocks-sf/issues";
     }
 
+    public MinecraftVersion getMinecraftVersion() {
+        return minecraftVersion;
+    }
 }
