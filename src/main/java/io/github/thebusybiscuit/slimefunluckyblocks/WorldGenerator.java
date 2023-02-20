@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -38,6 +39,10 @@ public class WorldGenerator implements Listener {
             int y = e.getWorld().getHighestBlockYAt(x, z);
 
             Block current = e.getWorld().getBlockAt(x, y, z);
+            if (current.getType() != Material.WATER) {
+                current = e.getWorld().getBlockAt(x, y+1, z);
+            }
+            
             if (!current.getType().isSolid() && current.getRelative(BlockFace.DOWN).getType().isSolid()) {
                 plugin.spawnLuckyBlock(current);
             }
