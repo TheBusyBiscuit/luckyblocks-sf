@@ -37,9 +37,9 @@ public class WorldGenerator implements Listener {
             int x = e.getChunk().getX() * 16 + random.nextInt(16);
             int z = e.getChunk().getZ() * 16 + random.nextInt(16);
             int y = e.getWorld().getHighestBlockYAt(x, z);
-                
+
             Block current = e.getWorld().getBlockAt(x, y, z);
-            if(current.getType() != Material.WATER){
+            if (current.getType() != Material.WATER) {
                 current = e.getWorld().getBlockAt(x, y+1, z);
             }
             
