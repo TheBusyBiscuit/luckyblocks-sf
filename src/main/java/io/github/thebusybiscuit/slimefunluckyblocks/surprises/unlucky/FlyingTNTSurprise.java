@@ -24,7 +24,7 @@ public final class FlyingTNTSurprise implements Surprise {
 		for (int i = 0; i < 6; i++) {
 			Bat bat = (Bat) l.getWorld().spawnEntity(l, EntityType.BAT);
 			bat.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999999, 255));
-			bat.getPassengers().add(l.getWorld().spawnEntity(l, EntityType.PRIMED_TNT));
+			bat.getPassengers().add(l.getWorld().spawnEntity(l, EntityType.TNT));
 		}
 	}
 

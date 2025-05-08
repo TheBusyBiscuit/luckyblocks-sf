@@ -17,12 +17,12 @@ public final class LuckyHelmetSurprise implements Surprise {
     private final ItemStack helmet;
 
     public LuckyHelmetSurprise() {
-        helmet = new CustomItemStack(Material.DIAMOND_HELMET, "&e&lLucky Helmet");
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);
+        helmet = CustomItemStack.create(Material.DIAMOND_HELMET, "&e&lLucky Helmet");
+        helmet.addUnsafeEnchantment(Enchantment.PROTECTION, 10);
+        helmet.addUnsafeEnchantment(Enchantment.PROJECTILE_PROTECTION, 10);
+        helmet.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 5);
         helmet.addUnsafeEnchantment(Enchantment.THORNS, 10);
-        helmet.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+        helmet.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
     }
 
     @Override

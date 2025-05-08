@@ -17,12 +17,12 @@ public final class LuckyChestplateSurprise implements Surprise {
     private final ItemStack chestplate;
 
     public LuckyChestplateSurprise() {
-        chestplate = new CustomItemStack(Material.DIAMOND_CHESTPLATE, "&e&lLucky Chestplate");
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);
+        chestplate = CustomItemStack.create(Material.DIAMOND_CHESTPLATE, "&e&lLucky Chestplate");
+        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION, 10);
+        chestplate.addUnsafeEnchantment(Enchantment.PROJECTILE_PROTECTION, 10);
+        chestplate.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 5);
         chestplate.addUnsafeEnchantment(Enchantment.THORNS, 10);
-        chestplate.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+        chestplate.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
     }
 
     @Override

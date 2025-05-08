@@ -21,11 +21,11 @@ public final class BryanZombieSurprise implements Surprise {
     private final ItemStack axe;
 
     public BryanZombieSurprise() {
-        axe = new CustomItemStack(Material.GOLDEN_AXE, "&e&lLucky Axe");
-        axe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
-        axe.addUnsafeEnchantment(Enchantment.DIG_SPEED, 10);
-        axe.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 10);
-        axe.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+        axe = CustomItemStack.create(Material.GOLDEN_AXE, "&e&lLucky Axe");
+        axe.addUnsafeEnchantment(Enchantment.SHARPNESS, 10);
+        axe.addUnsafeEnchantment(Enchantment.EFFICIENCY, 10);
+        axe.addUnsafeEnchantment(Enchantment.LOOTING, 10);
+        axe.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
     }
 
     @Override
@@ -36,7 +36,7 @@ public final class BryanZombieSurprise implements Surprise {
     @Override
     public void activate(Random random, Player p, Location l) {
         Zombie zombie = (Zombie) l.getWorld().spawnEntity(l, EntityType.ZOMBIE);
-        zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(60D);
+        zombie.getAttribute(Attribute.MAX_HEALTH).setBaseValue(60D);
         zombie.setHealth(60D);
         zombie.getEquipment().setItemInMainHand(axe.clone());
         zombie.getEquipment().setItemInMainHandDropChance(0F);

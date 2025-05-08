@@ -23,10 +23,10 @@ public final class WalshrusSurprise implements Surprise {
     private final ItemStack sword;
 
     public WalshrusSurprise() {
-        sword = new CustomItemStack(Material.GOLDEN_SWORD, "&e&lLucky Sword");
-        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
-        sword.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 10);
-        sword.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+        sword = CustomItemStack.create(Material.GOLDEN_SWORD, "&e&lLucky Sword");
+        sword.addUnsafeEnchantment(Enchantment.SHARPNESS, 10);
+        sword.addUnsafeEnchantment(Enchantment.LOOTING, 10);
+        sword.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
         sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 5);
     }
 
@@ -38,7 +38,7 @@ public final class WalshrusSurprise implements Surprise {
     @Override
     public void activate(Random random, Player p, Location l) {
         Zombie zombie = (Zombie) l.getWorld().spawnEntity(l, EntityType.ZOMBIE);
-        zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40D);
+        zombie.getAttribute(Attribute.MAX_HEALTH).setBaseValue(40D);
         zombie.setHealth(40D);
 
         zombie.getEquipment().setHelmet(PlayerHead.getItemStack(PlayerSkin.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk2NmYwZWJkNzdmMWJjZDY1NmZhMmRjM2VmMDMwM2UyNmE2YTNkZTQ5OGMzOTk5ZDM5ZmRjYWNjNWY1YWQifX19")));

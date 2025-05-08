@@ -24,9 +24,9 @@ public final class LuckyPotionsSurprise implements Surprise {
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.FUCHSIA, new PotionEffect(PotionEffectType.REGENERATION, 45, 0), true));
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.SILVER, new PotionEffect(PotionEffectType.SPEED, 180, 0), true));
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.ORANGE, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 180, 0), true));
-		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.RED, new PotionEffect(PotionEffectType.HEAL, 0, 0), true));
+		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.RED, new PotionEffect(PotionEffectType.HEALTH_BOOST, 0, 0), true));
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.NAVY, new PotionEffect(PotionEffectType.NIGHT_VISION, 180, 0), true));
-		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.MAROON, new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 180, 0), true));
+		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.MAROON, new PotionEffect(PotionEffectType.STRENGTH, 180, 0), true));
 	}
 
 	@Override

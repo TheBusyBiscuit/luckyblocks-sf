@@ -23,8 +23,8 @@ public final class UnluckyPotionsSurprise implements Surprise {
 	public void activate(Random random, Player p, Location l) {
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.GREEN, new PotionEffect(PotionEffectType.POISON, 45, 0), false));
 		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.PURPLE, new PotionEffect(PotionEffectType.WEAKNESS, 90, 0), false));
-		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.GRAY, new PotionEffect(PotionEffectType.SLOW, 90, 0), false));
-		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.MAROON, new PotionEffect(PotionEffectType.HARM, 0, 0), false));
+		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.GRAY, new PotionEffect(PotionEffectType.SLOWNESS, 90, 0), false));
+		l.getWorld().dropItemNaturally(l, SlimefunLuckyBlocks.createPotion(Color.MAROON, new PotionEffect(PotionEffectType.INSTANT_DAMAGE, 0, 0), false));
 	}
 
 	@Override

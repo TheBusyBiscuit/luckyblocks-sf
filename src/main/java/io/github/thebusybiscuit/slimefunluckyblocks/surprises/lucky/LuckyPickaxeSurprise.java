@@ -17,10 +17,10 @@ public final class LuckyPickaxeSurprise implements Surprise {
 	private final ItemStack pickaxe;
 	
 	public LuckyPickaxeSurprise() {
-		pickaxe = new CustomItemStack(Material.GOLDEN_PICKAXE, "&e&lLucky Pickaxe");
-		pickaxe.addUnsafeEnchantment(Enchantment.DIG_SPEED, 10);
-		pickaxe.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 10);
-		pickaxe.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+		pickaxe = CustomItemStack.create(Material.GOLDEN_PICKAXE, "&e&lLucky Pickaxe");
+		pickaxe.addUnsafeEnchantment(Enchantment.EFFICIENCY, 10);
+		pickaxe.addUnsafeEnchantment(Enchantment.FORTUNE, 10);
+		pickaxe.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
 	}
 	
 	@Override

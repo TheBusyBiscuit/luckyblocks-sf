@@ -17,12 +17,12 @@ public final class LuckyLeggingsSurprise implements Surprise {
     private final ItemStack leggings;
 
     public LuckyLeggingsSurprise() {
-        leggings = new CustomItemStack(Material.DIAMOND_LEGGINGS, "&e&lLucky Leggings");
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10);
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 5);
+        leggings = CustomItemStack.create(Material.DIAMOND_LEGGINGS, "&e&lLucky Leggings");
+        leggings.addUnsafeEnchantment(Enchantment.PROTECTION, 10);
+        leggings.addUnsafeEnchantment(Enchantment.PROJECTILE_PROTECTION, 10);
+        leggings.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 5);
         leggings.addUnsafeEnchantment(Enchantment.THORNS, 10);
-        leggings.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+        leggings.addUnsafeEnchantment(Enchantment.UNBREAKING, 10);
     }
 
     @Override
